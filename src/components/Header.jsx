@@ -50,7 +50,7 @@ function Header() {
         <HeaderOrdersCart>
           <Link to="/cart">
             <ShoppingCartIcon />
-            <ShoppingCartItems>1</ShoppingCartItems>
+            <ShoppingCartItems>3</ShoppingCartItems>
           </Link>
         </HeaderOrdersCart>
       </ContainerDiv>
@@ -237,6 +237,8 @@ const HeaderOrdersCart = styled.div`
 `;
 
 const ShoppingCartItems = styled.p`
+  color: #febd69;
+  font-family: 'Fira Sans';
   font-weight: 500;
   display: flex;
   align-items: center;

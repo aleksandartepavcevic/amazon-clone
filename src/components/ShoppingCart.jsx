@@ -7,6 +7,9 @@ function ShoppingCart() {
     <Container>
       <Title>Shopping Cart</Title>
       <ProductCart />
+      <ProductCart />
+      <ProductCart />
+      <ProductCart />
     </Container>
   );
 }
