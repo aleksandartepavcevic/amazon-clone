@@ -3,25 +3,28 @@ import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
+import { Link } from 'react-router-dom';
 
 function Header() {
   return (
     <Container>
       <ContainerDiv>
         <HeaderLogo>
-          <img
-            src={
-              'https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png'
-            }
-            alt="Amazon-logo"
-          />
+          <Link to="/">
+            <img
+              src={
+                'https://mikekitko.com/wp-content/uploads/2019/10/amazon-logo-white-768x232.png'
+              }
+              alt="Amazon-logo"
+            />
+          </Link>
         </HeaderLogo>
 
         <HeaderOptionAddress>
           <LocationOnIcon />
           <div>
-            <OptionLineOne>Hello</OptionLineOne>
-            <OptionLineTwo>Select your address</OptionLineTwo>
+            <OptionLineOne>Deliver to</OptionLineOne>
+            <OptionLineTwo>United States</OptionLineTwo>
           </div>
         </HeaderOptionAddress>
       </ContainerDiv>
@@ -45,8 +48,10 @@ function Header() {
         </HeaderOrders>
 
         <HeaderOrdersCart>
-          <ShoppingCartIcon />
-          <ShoppingCartItems>0</ShoppingCartItems>
+          <Link to="/cart">
+            <ShoppingCartIcon />
+            <ShoppingCartItems>1</ShoppingCartItems>
+          </Link>
         </HeaderOrdersCart>
       </ContainerDiv>
     </Container>
@@ -72,7 +77,7 @@ const ContainerDiv = styled.div`
 `;
 
 const HeaderLogo = styled.div`
-  padding: 0 15px;
+  padding: 5px 15px 0 15px;
   border-radius: 3px;
   overflow: hidden;
   display: flex;
@@ -128,6 +133,7 @@ const OptionLineTwo = styled.p`
 `;
 
 const HeaderSearch = styled.div`
+  min-width: 200px;
   margin: 0 15px;
   display: flex;
   align-items: center;
@@ -145,7 +151,7 @@ const HeaderSearch = styled.div`
 const HeaderSearchInput = styled.input`
   height: 100%;
   flex-grow: 1;
-  min-width: 200px;
+
   border: 0;
   outline: none;
   padding: 0 10px;
@@ -208,15 +214,21 @@ const HeaderOrdersCart = styled.div`
   padding: 0 15px;
   display: flex;
   aligh-items: center;
+  border-radius: 3px;
+  overflow: hidden;
+
+  a {
+    display: flex;
+    aligh-items: center;
+    color: white;
+    text-decoration: none;
+  }
 
   svg {
     height: 100%;
     font-size: 2.5rem;
     margin-right: 5px;
   }
-
-  border-radius: 3px;
-  overflow: hidden;
 
   :hover {
     cursor: pointer;
