@@ -20,14 +20,21 @@ function Header({ data }) {
           </Link>
         </HeaderLogo>
 
-        <HeaderOptionAddress>
-          <LocationOnIcon />
-          <div>
-            <OptionLineOne>Deliver to</OptionLineOne>
-            <OptionLineTwo>United States</OptionLineTwo>
-          </div>
-        </HeaderOptionAddress>
+        <MobileCart>
+          <Link to="/cart">
+            <ShoppingCartIcon />
+            <ShoppingCartItems>{data}</ShoppingCartItems>
+          </Link>
+        </MobileCart>
       </ContainerDiv>
+
+      <HeaderOptionAddress>
+        <LocationOnIcon />
+        <div>
+          <OptionLineOne>Deliver to</OptionLineOne>
+          <OptionLineTwo>United States</OptionLineTwo>
+        </div>
+      </HeaderOptionAddress>
 
       <HeaderSearch>
         <HeaderSearchInput type="text" />
@@ -61,7 +68,6 @@ function Header({ data }) {
 export default Header;
 
 const Container = styled.div`
-  height: 60px;
   background-color: #0f1111;
   display: flex;
   justify-content: space-between;
@@ -69,11 +75,23 @@ const Container = styled.div`
   color: white;
   font-size: 1.4rem;
   padding: 10px;
+
+  @media only screen and (max-width: 840px) {
+    flex-direction: column;
+    align-items: unset;
+    padding: 10px 0px;
+  }
 `;
 
 const ContainerDiv = styled.div`
   height: 100%;
   display: flex;
+
+  @media only screen and (max-width: 840px) {
+    justify-content: space-between;
+    order: 0;
+    margin-bottom: 10px;
+  }
 `;
 
 const HeaderLogo = styled.div`
@@ -83,8 +101,42 @@ const HeaderLogo = styled.div`
   display: flex;
   align-items: center;
 
+  @media only screen and (max-width: 840px) {
+    padding: 5px 10px 0 10px;
+  }
+
   img {
     width: 100px;
+  }
+
+  :hover {
+    cursor: pointer;
+    box-shadow: 0 0 0 1px #fff;
+  }
+`;
+
+const MobileCart = styled.div`
+  display: none;
+  padding: 0 15px;
+  aligh-items: center;
+  border-radius: 3px;
+  overflow: hidden;
+
+  @media only screen and (max-width: 840px) {
+    display: flex;
+  }
+
+  a {
+    display: flex;
+    aligh-items: center;
+    color: white;
+    text-decoration: none;
+  }
+
+  svg {
+    height: 100%;
+    font-size: 2.5rem;
+    margin-right: 5px;
   }
 
   :hover {
@@ -97,10 +149,21 @@ const HeaderOptionAddress = styled.div`
   padding: 0 15px 0 10px;
   display: flex;
 
+  @media only screen and (max-width: 840px) {
+    order: 2;
+    margin-top: 10px;
+    padding: 0 10px;
+  }
+
   div {
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    @media only screen and (max-width: 840px) {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   svg {
@@ -130,6 +193,11 @@ const OptionLineTwo = styled.p`
   font-size: 1.4rem;
   font-weight: 600;
   font-family: 'Fira Sans', sans-serif;
+
+  @media only screen and (max-width: 840px) {
+    margin-left: 5px;
+    font-size: 1.2rem;
+  }
 `;
 
 const HeaderSearch = styled.div`
@@ -141,6 +209,11 @@ const HeaderSearch = styled.div`
   flex-grow: 1;
   border-radius: 3px;
   overflow: hidden;
+
+  @media only screen and (max-width: 840px) {
+    order: 1;
+    margin: 0 10px;
+  }
 
   :focus-within {
     box-shadow: 0 0 2px 3px #f90;
@@ -190,6 +263,10 @@ const HeaderAccount = styled.div`
   border-radius: 3px;
   overflow: hidden;
 
+  @media only screen and (max-width: 840px) {
+    display: none;
+  }
+
   :hover {
     cursor: pointer;
     box-shadow: 0 0 0 1px #fff;
@@ -204,6 +281,10 @@ const HeaderOrders = styled.div`
   border-radius: 3px;
   overflow: hidden;
 
+  @media only screen and (max-width: 840px) {
+    display: none;
+  }
+
   :hover {
     cursor: pointer;
     box-shadow: 0 0 0 1px #fff;
@@ -216,6 +297,10 @@ const HeaderOrdersCart = styled.div`
   aligh-items: center;
   border-radius: 3px;
   overflow: hidden;
+
+  @media only screen and (max-width: 840px) {
+    display: none;
+  }
 
   a {
     display: flex;

@@ -38,9 +38,19 @@ const Container = styled.div`
   z-index: 100;
   display: flex;
   flex: 1;
+
+  @media only screen and (max-width: 565px) {
+    flex-direction: column;
+  }
 `;
 
-const ImageContainer = styled.div``;
+const ImageContainer = styled.div`
+  @media only screen and (max-width: 565px) {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 20px 0;
+  }
+`;
 
 const ProductImage = styled.img`
   width: 200px;
@@ -66,7 +76,6 @@ const ProductPrice = styled.h1`
   font-family: 'Fira Sans';
   font-weight: 400;
   position: relative;
-  margin-left: 6px;
 `;
 
 const PriceSymbol = styled.span`
@@ -91,4 +100,8 @@ const ProductShipping = styled.p`
   font-family: 'Fira Sans';
   font-weight: 400;
   margin-top: 5px;
+
+  @media only screen and (max-width: 565px) {
+    margin-bottom: 15px;
+  }
 `;

@@ -18,13 +18,17 @@ function ProductCart({ item }) {
 
   return (
     <Container>
-      <div style={{ display: 'flex' }}>
+      <ProductContainer>
         <ImageContainer>
           <ProductImage src={cartItems.image} />
         </ImageContainer>
 
         <ProductInfo>
           <ProductName>{cartItems.name}</ProductName>
+
+          <ProductPriceMobile>
+            <span>Price:</span> ${cartItems.price}
+          </ProductPriceMobile>
 
           <InStock>In stock</InStock>
 
@@ -46,7 +50,7 @@ function ProductCart({ item }) {
             <Delete onClick={removeFromCart}>Delete</Delete>
           </div>
         </ProductInfo>
-      </div>
+      </ProductContainer>
 
       <ProductPrice>${cartItems.price}</ProductPrice>
     </Container>
@@ -69,7 +73,19 @@ const Container = styled.div`
   }
 `;
 
-const ImageContainer = styled.div``;
+const ProductContainer = styled.div`
+  display: flex;
+
+  @media only screen and (max-width: 775px) {
+    flex-direction: column;
+  }
+`;
+
+const ImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
 
 const ProductImage = styled.img`
   width: 200px;
@@ -89,6 +105,22 @@ const ProductName = styled.h1`
 const ProductPrice = styled.h1`
   font-family: 'Fira Sans';
   font-weight: 600;
+  margin-left: 20px;
+
+  @media only screen and (max-width: 430px) {
+    display: none;
+  }
+`;
+
+const ProductPriceMobile = styled.h2`
+  font-family: 'Fira Sans';
+  font-weight: 600;
+  margin-bottom: 10px;
+
+  span {
+    font-weight: 400;
+    margin-right: 5px;
+  }
 `;
 
 const InStock = styled.p`

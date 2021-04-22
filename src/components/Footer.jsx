@@ -59,12 +59,21 @@ export default Footer;
 const Container = styled.div`
   background-color: #232f3e;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   padding: 70px 0;
+
+  @media only screen and (max-width: 480px) {
+    justify-content: unset;
+  }
 `;
 
 const Section = styled.div`
-  padding: 0 60px;
+  padding: 30px 60px;
+
+  @media only screen and (max-width: 480px) {
+    padding: 30px 20px;
+  }
 `;
 
 const Heading = styled.h2`

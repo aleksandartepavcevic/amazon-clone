@@ -22,8 +22,10 @@ function Cart({ cartItems, cartProductNumber }) {
 
   return (
     <Container>
-      <ShoppingCart cartItems={cartItems} />
-      <Checkout cartProductNumber={cartProductNumber} totalPrice={price} />
+      <InnerContainer>
+        <ShoppingCart cartItems={cartItems} />
+        <Checkout cartProductNumber={cartProductNumber} totalPrice={price} />
+      </InnerContainer>
     </Container>
   );
 }
@@ -31,7 +33,18 @@ function Cart({ cartItems, cartProductNumber }) {
 export default Cart;
 
 const Container = styled.div`
-  display: flex;
   background-color: #ddd;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
   padding: 20px;
+  min-height: 600px;
+  max-width: 1500px;
+  margin: 0 auto;
+
+  @media only screen and (max-width: 775px) {
+    flex-direction: column;
+    min-height: unset;
+  }
 `;

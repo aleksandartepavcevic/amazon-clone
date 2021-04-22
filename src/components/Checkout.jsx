@@ -17,12 +17,17 @@ export default Checkout;
 
 const Container = styled.div`
   flex: 1;
-  height: 125px;
+  height: 0%;
   background-color: #fff;
   padding: 20px;
   margin-left: 10px;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 775px) {
+    margin: 20px 0 0 0;
+    justify-content: center;
+  }
 
   h1 {
     font-family: 'Fira Sans';
