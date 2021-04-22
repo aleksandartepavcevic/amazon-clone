@@ -12,7 +12,7 @@ function ShoppingCart({ cartItems }) {
           <Title>Shopping Cart</Title>
 
           {cartItems.map((item) => (
-            <ProductCart item={item} />
+            <ProductCart item={item} key={item.id} />
           ))}
         </div>
       ) : (

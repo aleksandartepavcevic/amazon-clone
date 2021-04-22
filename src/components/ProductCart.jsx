@@ -63,6 +63,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
 
+  @media only screen and (max-width: 775px) {
+    display: block;
+  }
+
   :not(:last-of-type) {
     border-bottom: solid 1px rgba(0, 0, 0, 0.2);
     padding: 20px 0;
@@ -92,6 +96,10 @@ const ProductImage = styled.img`
   height: 200px;
   object-fit: contain;
   margin-right: 20px;
+
+  @media only screen and (max-width: 775px) {
+    margin-right: 0;
+  }
 `;
 
 const ProductInfo = styled.div``;
@@ -107,7 +115,7 @@ const ProductPrice = styled.h1`
   font-weight: 600;
   margin-left: 20px;
 
-  @media only screen and (max-width: 430px) {
+  @media only screen and (max-width: 775px) {
     display: none;
   }
 `;
@@ -116,6 +124,11 @@ const ProductPriceMobile = styled.h2`
   font-family: 'Fira Sans';
   font-weight: 600;
   margin-bottom: 10px;
+  display: none;
+
+  @media only screen and (max-width: 775px) {
+    display: block;
+  }
 
   span {
     font-weight: 400;
