@@ -1,17 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
+import { db } from '../firebase';
 
-function ProductCart() {
+function ProductCart({ item }) {
+  const { id, cartItems } = item;
+  const removeFromCart = () => {
+    db.collection('cartItems')
+      .doc(id)
+      .delete()
+      .then(() => {
+        console.log('Product successfully removed from the cart.');
+      })
+      .catch((error) => {
+        console.error('Unable to remove product from the cart.');
+      });
+  };
+
   return (
     <Container>
       <div style={{ display: 'flex' }}>
-        <ProductImage src="https://images-na.ssl-images-amazon.com/images/I/719UcXKzXHL._AC_SL1500_.jpg" />
+        <ImageContainer>
+          <ProductImage src={cartItems.image} />
+        </ImageContainer>
 
         <ProductInfo>
-          <ProductName>
-            New Apple iPad Air (10.9-inch, Wi-Fi, 64GB) - Space Gray (Latest
-            Model, 4th Generation)
-          </ProductName>
+          <ProductName>{cartItems.name}</ProductName>
 
           <InStock>In stock</InStock>
 
@@ -20,18 +33,22 @@ function ProductCart() {
             <Span>Black</Span>
           </Style>
 
-          <Quantity>
-            <select>
-              <option>Qty: 1</option>
-              <option>Qty: 2</option>
-              <option>Qty: 3</option>
-              <option>Qty: 4</option>
-            </select>
-          </Quantity>
+          <div style={{ display: 'flex', alignItems: 'center', marginTop: 20 }}>
+            <Quantity>
+              <select>
+                <option>Qty: 1</option>
+                <option>Qty: 2</option>
+                <option>Qty: 3</option>
+                <option>Qty: 4</option>
+              </select>
+            </Quantity>
+
+            <Delete onClick={removeFromCart}>Delete</Delete>
+          </div>
         </ProductInfo>
       </div>
 
-      <ProductPrice>$558.00</ProductPrice>
+      <ProductPrice>${cartItems.price}</ProductPrice>
     </Container>
   );
 }
@@ -52,8 +69,12 @@ const Container = styled.div`
   }
 `;
 
+const ImageContainer = styled.div``;
+
 const ProductImage = styled.img`
-  max-height: 200px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   margin-right: 20px;
 `;
 
@@ -96,6 +117,17 @@ const Span = styled.p`
   margin-bottom: 5px;
 `;
 
-const Quantity = styled.div`
-  margin-top: 10px;
+const Quantity = styled.div``;
+
+const Delete = styled.h3`
+  color: #007185;
+  margin-left: 15px;
+  font-family: 'Fira Sans';
+  font-weight: 400;
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  :hover {
+    text-decoration: underline;
+  }
 `;

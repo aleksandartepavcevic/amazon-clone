@@ -2,28 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import AddToCart from './AddToCart';
 
-function Product() {
+function Product({ data }) {
   return (
     <Container>
-      <ProductImage src="https://images-na.ssl-images-amazon.com/images/I/719UcXKzXHL._AC_SL1500_.jpg" />
+      <ImageContainer>
+        <ProductImage src={data.product.image} />
+      </ImageContainer>
 
       <ProductInfo>
         <div style={{ minWidth: 200 }}>
-          <ProductName>
-            New Apple iPad Air (10.9-inch, Wi-Fi, 64GB) - Space Gray (Latest
-            Model, 4th Generation)
-          </ProductName>
+          <ProductName>{data.product.name}</ProductName>
 
           <ProductPrice>
-            <PriceSymbol>$</PriceSymbol>
+            {/* <PriceSymbol>$</PriceSymbol>
             <PriceWhole>558</PriceWhole>
-            <PriceFraction>00</PriceFraction>
+            <PriceFraction>00</PriceFraction> */}
+            ${data.product.price}
           </ProductPrice>
 
           <ProductShipping>Ships to United States</ProductShipping>
         </div>
 
-        <AddToCart />
+        <AddToCart id={data.id} productData={data.product} />
       </ProductInfo>
     </Container>
   );
@@ -40,12 +40,17 @@ const Container = styled.div`
   flex: 1;
 `;
 
+const ImageContainer = styled.div``;
+
 const ProductImage = styled.img`
-  max-height: 200px;
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
   margin-right: 20px;
 `;
 
 const ProductInfo = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

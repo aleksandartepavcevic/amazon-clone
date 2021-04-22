@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({ data }) {
   return (
     <Container>
       <ContainerDiv>
@@ -50,7 +50,7 @@ function Header() {
         <HeaderOrdersCart>
           <Link to="/cart">
             <ShoppingCartIcon />
-            <ShoppingCartItems>3</ShoppingCartItems>
+            <ShoppingCartItems>{data}</ShoppingCartItems>
           </Link>
         </HeaderOrdersCart>
       </ContainerDiv>

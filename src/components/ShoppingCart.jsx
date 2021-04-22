@@ -2,14 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import ProductCart from './ProductCart';
 
-function ShoppingCart() {
+function ShoppingCart({ cartItems }) {
   return (
     <Container>
       <Title>Shopping Cart</Title>
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
-      <ProductCart />
+      {cartItems.length != 0 ? (
+        cartItems.map((item) => <ProductCart item={item} />)
+      ) : (
+        <Text>You have not added any products to the cart.</Text>
+      )}
     </Container>
   );
 }
@@ -41,4 +42,10 @@ const Title = styled.h1`
     font-weight: 400;
     font-size: 1.4rem;
   }
+`;
+
+const Text = styled.h2`
+  font-family: 'Fira Sans';
+  font-weight: 400;
+  margin-top: 20px;
 `;

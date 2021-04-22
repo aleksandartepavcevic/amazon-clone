@@ -2,18 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 import Product from './Product';
 
-function Home() {
+function Home({ data }) {
   return (
     <div style={{ backgroundColor: '#ddd', paddingBottom: 10 }}>
       <Container>
         <Banner />
 
         <Content>
-          <Product />
-          <Product />
-          <Product />
-          <Product />
-          <Product />
+          {data.map((p) => (
+            <Product data={p} key={p.id} />
+          ))}
         </Content>
       </Container>
     </div>

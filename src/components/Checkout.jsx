@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Checkout() {
+function Checkout({ cartProductNumber, totalPrice }) {
   return (
     <Container>
       <h1>
-        Subtotal (3 items): <span>$1,674.00</span>
+        Subtotal ({cartProductNumber} items): <span>${totalPrice}</span>
       </h1>
 
       <ProceedToCheckout>Proceed to checkout</ProceedToCheckout>
