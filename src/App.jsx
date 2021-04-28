@@ -6,6 +6,8 @@ import Home from './components/Home';
 import Cart from './components/Cart';
 import Footer from './components/Footer';
 import { db } from './firebase';
+import Login from './components/Login';
+import Signup from './components/Signup';
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -27,6 +29,8 @@ function App() {
 
   const [cartItems, setCartItems] = useState([]);
   const [cartProductNumber, setCartProductNumber] = useState(0);
+
+  console.log(cartItems);
 
   const getItems = () => {
     db.collection('cartItems').onSnapshot((snapshot) => {
@@ -55,19 +59,27 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Header data={cartProductNumber} />
-
         <Switch>
+          <Route path="/login">
+            <Login />
+          </Route>
+
+          <Route path="/signup">
+            <Signup />
+          </Route>
+
           <Route path="/cart">
+            <Header data={cartProductNumber} />
             <Cart cartItems={cartItems} cartProductNumber={cartProductNumber} />
+            <Footer />
           </Route>
 
           <Route path="/">
+            <Header data={cartProductNumber} />
             <Home data={products} />
+            <Footer />
           </Route>
         </Switch>
-
-        <Footer />
       </div>
     </Router>
   );

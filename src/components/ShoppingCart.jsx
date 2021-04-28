@@ -7,7 +7,7 @@ function ShoppingCart({ cartItems }) {
   console.log(cartItems);
   return (
     <Container>
-      {cartItems != 0 ? (
+      {cartItems.length !== 0 ? (
         <div>
           <Title>Shopping Cart</Title>
 

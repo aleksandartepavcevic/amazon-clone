@@ -13,12 +13,7 @@ function Product({ data }) {
         <div style={{ minWidth: 200 }}>
           <ProductName>{data.product.name}</ProductName>
 
-          <ProductPrice>
-            {/* <PriceSymbol>$</PriceSymbol>
-            <PriceWhole>558</PriceWhole>
-            <PriceFraction>00</PriceFraction> */}
-            ${data.product.price}
-          </ProductPrice>
+          <ProductPrice>${data.product.price}</ProductPrice>
 
           <ProductShipping>Ships to United States</ProductShipping>
         </div>
@@ -76,24 +71,6 @@ const ProductPrice = styled.h1`
   font-family: 'Fira Sans';
   font-weight: 400;
   position: relative;
-`;
-
-const PriceSymbol = styled.span`
-  font-size: 1rem;
-  position: absolute;
-  top: 5px;
-  left: -6px;
-`;
-
-const PriceWhole = styled.span`
-  font-weight: 500;
-  margin: 0 1px;
-`;
-
-const PriceFraction = styled.span`
-  font-size: 1rem;
-  position: absolute;
-  top: 4px;
 `;
 
 const ProductShipping = styled.p`

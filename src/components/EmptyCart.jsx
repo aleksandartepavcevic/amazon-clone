@@ -16,8 +16,12 @@ function EmptyCart() {
           <MinorText>Shop today's deals</MinorText>
         </Link>
         <ButtonContainer>
-          <SignIn>Sign in to your account</SignIn>
-          <SignUp>Sign up now</SignUp>
+          <Link to="/login">
+            <SignIn>Sign in to your account</SignIn>
+          </Link>
+          <Link to="/signup">
+            <SignUp>Sign up now</SignUp>
+          </Link>
         </ButtonContainer>
       </Content>
     </Container>

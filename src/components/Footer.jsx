@@ -59,20 +59,31 @@ export default Footer;
 const Container = styled.div`
   background-color: #232f3e;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   padding: 70px 0;
 
-  @media only screen and (max-width: 480px) {
+  @media only screen and (max-width: 650px) {
+    flex-direction: column;
     justify-content: unset;
+  }
+
+  @media only screen and (max-width: 480px) {
   }
 `;
 
 const Section = styled.div`
-  padding: 30px 60px;
+  :not(:first-of-type) {
+    padding-left: 60px;
+  }
 
-  @media only screen and (max-width: 480px) {
-    padding: 30px 20px;
+  @media only screen and (max-width: 800px) {
+    :not(:first-of-type) {
+      padding-left: 20px;
+    }
+  }
+
+  @media only screen and (max-width: 650px) {
+    padding: 20px 20px;
   }
 `;
 
@@ -105,4 +116,5 @@ const SubFooter = styled.div`
 
 const Logo = styled.img`
   max-width: 100px;
+  max-height: 30px;
 `;
