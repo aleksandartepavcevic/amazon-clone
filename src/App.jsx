@@ -30,8 +30,6 @@ function App() {
   const [cartItems, setCartItems] = useState([]);
   const [cartProductNumber, setCartProductNumber] = useState(0);
 
-  console.log(cartItems);
-
   const getItems = () => {
     db.collection('cartItems').onSnapshot((snapshot) => {
       let tempCartItems = [];

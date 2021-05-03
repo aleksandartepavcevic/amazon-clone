@@ -9,7 +9,7 @@ const Login = () => {
         <Logo src={'http://pngimg.com/uploads/amazon/amazon_PNG6.png'} />
       </Link>
 
-      <div style={{ position: 'relative' }}>
+      <InnerContainer>
         <SignInContainer>
           <h1>Sign-In</h1>
 
@@ -25,9 +25,15 @@ const Login = () => {
           </p>
         </SignInContainer>
 
-        <AmazonText>New to Amazon?</AmazonText>
-        <Line />
-      </div>
+        <div style={{ position: 'relative' }}>
+          <AmazonText>New to Amazon?</AmazonText>
+          <Line />
+        </div>
+
+        <Link to="/signup">
+          <CreateYourAccount>Create your Amazon account</CreateYourAccount>
+        </Link>
+      </InnerContainer>
     </Container>
   );
 };
@@ -40,6 +46,11 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 20px 20px;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const Logo = styled.img`
@@ -131,4 +142,23 @@ const Line = styled.div`
   left: 0;
   right: 0;
   z-index: 1;
+`;
+
+const CreateYourAccount = styled.button`
+  width: 100%;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 3px;
+  background-color: #d6d6d6;
+  font-family: 'Fira Sans';
+  font-weight: 400;
+  font-size: 1.2rem;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+
+  :hover {
+    background-color: #b1b1b1;
+    transition: background-color 200ms ease-in-out;
+  }
 `;
