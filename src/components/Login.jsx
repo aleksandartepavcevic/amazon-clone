@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
 
 const Login = () => {
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [error, setError] = useState('');
+  const history = useHistory();
+
+  const LoginToAccount = (event) => {
+    event.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(userEmail, userPassword)
+      .then(() => {
+        history.push('/');
+      })
+      .catch((error) => {
+        setUserEmail('');
+        setUserPassword('');
+        setError(error.message);
+      });
+  };
+
   return (
     <Container>
       <Link to="/">
@@ -11,12 +32,25 @@ const Login = () => {
 
       <InnerContainer>
         <SignInContainer>
-          <h1>Sign-In</h1>
+          <form onSubmit={LoginToAccount}>
+            <h1>Sign-In</h1>
 
-          <form>
-            <label>Email or mobile phone number</label>
-            <input />
-            <button>Continue</button>
+            <label>Email</label>
+            <Input
+              value={userEmail}
+              type="email"
+              required
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <label>Password</label>
+            <Password
+              value={userPassword}
+              type="password"
+              required
+              onChange={(e) => setUserPassword(e.target.value)}
+            />
+            {error && <Error>{error}</Error>}
+            <Submit type="submit" value="Login to your Amazon account" />
           </form>
 
           <p>
@@ -83,36 +117,6 @@ const SignInContainer = styled.div`
       font-family: 'Fira Sans', sans-serif;
       margin-bottom: 0.5rem;
     }
-
-    input {
-      padding: 0.5rem;
-      border: solid 1px #aaa;
-      border-radius: 3px;
-      font-family: 'Fira Sans', sans-serif;
-
-      :active,
-      :focus {
-        outline-color: orange;
-      }
-    }
-
-    button {
-      margin: 1rem 0 2.5rem 0;
-      border: none;
-      border-radius: 3px;
-      background-color: #ffd814;
-      font-family: 'Fira Sans';
-      font-weight: 400;
-      font-size: 1.2rem;
-      padding: 0.5em 0.8em;
-      cursor: pointer;
-      transition: background-color 200ms ease-in-out;
-
-      :hover {
-        background-color: #febd69;
-        transition: background-color 200ms ease-in-out;
-      }
-    }
   }
 
   p {
@@ -161,4 +165,55 @@ const CreateYourAccount = styled.button`
     background-color: #b1b1b1;
     transition: background-color 200ms ease-in-out;
   }
+`;
+
+const Input = styled.input`
+  padding: 0.5rem;
+  border: solid 1px #aaa;
+  border-radius: 3px;
+  font-family: 'Fira Sans', sans-serif;
+  margin-bottom: 1rem;
+
+  :active,
+  :focus {
+    outline-color: orange;
+  }
+`;
+
+const Password = styled.input`
+  padding: 0.5rem;
+  border: solid 1px #aaa;
+  border-radius: 3px;
+  font-family: 'Fira Sans', sans-serif;
+  margin-bottom: 1rem;
+
+  :active,
+  :focus {
+    outline-color: orange;
+  }
+`;
+
+const Submit = styled.input`
+  margin: 1rem 0 2.5rem 0;
+  border: none;
+  border-radius: 3px;
+  background-color: #ffd814;
+  font-family: 'Fira Sans';
+  font-weight: 400;
+  font-size: 1.2rem;
+  padding: 0.5em 0.8em;
+  cursor: pointer;
+  transition: background-color 200ms ease-in-out;
+
+  :hover {
+    background-color: #febd69;
+    transition: background-color 200ms ease-in-out;
+  }
+`;
+
+const Error = styled.p`
+  font-family: 'Fira Sans';
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: red;
 `;

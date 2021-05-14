@@ -4,8 +4,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Link } from 'react-router-dom';
+import { auth } from '../firebase';
+import * as FaIcons from 'react-icons/fa';
 
-function Header({ data }) {
+function Header({ data, user }) {
   return (
     <Container>
       <ContainerDiv>
@@ -44,10 +46,41 @@ function Header({ data }) {
       </HeaderSearch>
 
       <ContainerDiv>
-        <HeaderAccount>
-          <OptionLineOne>Hello, Aleksandar</OptionLineOne>
-          <OptionLineTwo>Account & Lists</OptionLineTwo>
-        </HeaderAccount>
+        <Dropdown>
+          <Link
+            to="/login"
+            style={{
+              color: 'white',
+              textDecoration: 'none',
+            }}
+          >
+            <HeaderAccount>
+              <OptionLineOne>
+                Hello, {user ? user.displayName : 'Sign in'}
+              </OptionLineOne>
+              <OptionLineTwo>
+                Account & Lists <FaIcons.FaCaretDown />
+              </OptionLineTwo>
+            </HeaderAccount>
+          </Link>
+          {user ? (
+            <DropDownContent>
+              <OptionLine
+                onClick={() => {
+                  auth.signOut();
+                }}
+              >
+                Sign out
+              </OptionLine>
+            </DropDownContent>
+          ) : (
+            <DropDownContent>
+              <OptionLine>
+                <Link to="/login">Sign In</Link>
+              </OptionLine>
+            </DropDownContent>
+          )}
+        </Dropdown>
 
         <HeaderOrders>
           <OptionLineOne>Returns</OptionLineOne>
@@ -190,9 +223,15 @@ const OptionLineOne = styled.p`
 `;
 
 const OptionLineTwo = styled.p`
+  display: flex;
+  align-items: center;
   font-size: 1.4rem;
   font-weight: 600;
   font-family: 'Fira Sans', sans-serif;
+
+  svg {
+    margin-left: 5px;
+  }
 
   @media only screen and (max-width: 840px) {
     margin-left: 5px;
@@ -327,4 +366,43 @@ const ShoppingCartItems = styled.p`
   font-weight: 500;
   display: flex;
   align-items: center;
+`;
+
+const DropDownContent = styled.div`
+  display: none;
+  position: absolute;
+  width: 100%;
+  z-index: 100;
+  bottom: -37px;
+  left: 0;
+  padding: 10px 15px;
+  background-color: #ddd;
+`;
+
+const OptionLine = styled.p`
+  font-family: 'Fira Sans';
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: black;
+  cursor: pointer;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
+const Dropdown = styled.div`
+  position: relative;
+  display: inline-block;
+
+  &:hover ${DropDownContent} {
+    display: block;
+    transform: scaleY(100%);
+    transition: transform 300ms ease-in-out;
+  }
 `;

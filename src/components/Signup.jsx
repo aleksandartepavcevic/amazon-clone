@@ -1,64 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { db } from '../firebase';
+import { Link, useHistory } from 'react-router-dom';
+import { auth } from '../firebase';
 
 const Signup = () => {
-  const [newAcc, setNewAcc] = useState({
-    name: '',
-    email: '',
-    password: '',
-    rePassword: '',
-  });
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+  const [error, setError] = useState('');
+  const history = useHistory();
 
-  const name = React.createRef();
-  const email = React.createRef();
-  const pass = React.createRef();
-  const rePass = React.createRef();
-
-  useEffect(() => {
-    checkProperties(newAcc) === false && createAccount();
-  }, [newAcc]);
-
-  const checkProperties = (obj) => {
-    for (let key in obj) {
-      if (obj[key] === '') {
-        return true;
-      } else return false;
-    }
-  };
-
-  const getAccInfo = (event) => {
+  const createAccount = (event) => {
     event.preventDefault();
-    pass.current.value === rePass.current.value
-      ? setNewAcc((prevState) => {
-          return {
-            ...prevState,
-            name: name.current.value,
-            email: email.current.value,
-            password: pass.current.value,
-            rePassword: rePass.current.value,
-          };
-        })
-      : window.alert(`Password doesn't match.`);
-  };
 
-  const createAccount = () => {
-    // db.collection('accounts').onSnapshot((snapshot) => {
-    //   snapshot.docs.map((doc) => {
-    //     newAcc.email === doc.data().email && window.alert('postoji acc');
-    //   });
-    // });
-
-    db.collection('accounts')
-      .add({
-        ...newAcc,
+    auth
+      .createUserWithEmailAndPassword(userEmail, userPassword)
+      .then((result) => {
+        result.user.updateProfile({
+          displayName: userName,
+        });
       })
       .then(() => {
-        console.log('Account successfully added!');
+        history.push('/');
       })
       .catch((error) => {
-        console.error('Error adding account: ', error);
+        setUserName('');
+        setUserEmail('');
+        setUserPassword('');
+        setError(error.message);
       });
   };
 
@@ -72,15 +41,29 @@ const Signup = () => {
         <SignInContainer>
           <h1>Create account</h1>
 
-          <form onSubmit={getAccInfo}>
+          <form onSubmit={createAccount}>
             <label>Your name</label>
-            <Input ref={name} type="text" required />
+            <Input
+              value={userName}
+              type="text"
+              required
+              onChange={(e) => setUserName(e.target.value)}
+            />
             <label>Email</label>
-            <Input ref={email} type="email" required />
+            <Input
+              value={userEmail}
+              type="email"
+              required
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
             <label>Password</label>
-            <Password ref={pass} type="password" required />
-            <label>Re-enter password</label>
-            <Password ref={rePass} type="password" required />
+            <Password
+              value={userPassword}
+              type="password"
+              required
+              onChange={(e) => setUserPassword(e.target.value)}
+            />
+            {error && <Error>{error}</Error>}
             <Submit type="submit" value="Create your Amazon account" />
           </form>
 
@@ -189,4 +172,11 @@ const Submit = styled.input`
     background-color: #febd69;
     transition: background-color 200ms ease-in-out;
   }
+`;
+
+const Error = styled.p`
+  font-family: 'Fira Sans';
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: red;
 `;

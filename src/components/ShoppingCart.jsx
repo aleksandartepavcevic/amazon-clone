@@ -4,7 +4,6 @@ import ProductCart from './ProductCart';
 import EmptyCart from './EmptyCart';
 
 function ShoppingCart({ cartItems }) {
-  console.log(cartItems);
   return (
     <Container>
       {cartItems.length !== 0 ? (

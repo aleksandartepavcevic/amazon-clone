@@ -8,9 +8,12 @@ import Footer from './components/Footer';
 import { db } from './firebase';
 import Login from './components/Login';
 import Signup from './components/Signup';
+import useAuthListener from './hooks/useAuthListener';
 
 function App() {
   const [products, setProducts] = useState([]);
+  const user = useAuthListener();
+  console.log(user);
 
   const getProducts = () => {
     db.collection('products').onSnapshot((snapshot) => {
@@ -67,13 +70,13 @@ function App() {
           </Route>
 
           <Route path="/cart">
-            <Header data={cartProductNumber} />
+            <Header data={cartProductNumber} user={user} />
             <Cart cartItems={cartItems} cartProductNumber={cartProductNumber} />
             <Footer />
           </Route>
 
           <Route path="/">
-            <Header data={cartProductNumber} />
+            <Header data={cartProductNumber} user={user} />
             <Home data={products} />
             <Footer />
           </Route>
